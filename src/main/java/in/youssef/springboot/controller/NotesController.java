@@ -5,10 +5,7 @@ import in.youssef.springboot.repository.NotesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +19,12 @@ public class NotesController {
     @GetMapping("/notes")
     public ResponseEntity<List<Note>> readNotes () {
         return new ResponseEntity<List<Note>>(nRepository.findAll(), HttpStatus.OK);
+    }
+
+    // NotesRepository provides a save() to save Note object
+    @PostMapping("/notes")
+    public ResponseEntity<Note> createNote(@RequestBody Note note) {
+        return new ResponseEntity<Note>(nRepository.save(note), HttpStatus.CREATED);
     }
 
 }
